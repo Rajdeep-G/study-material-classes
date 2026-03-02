@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>D3.js Pie Chart</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script> <!-- Load D3.js -->
+    <!-- Define CSS styles for the radio buttons -->
+    <style>
+        .radio-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: white;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+
+        .radio-buttons label {
+            margin-right: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="chart"></div>
+    <script>
+        // Function to create the pie chart
+        function createPieChart(data) {
+            // Set up the chart dimensions
+            const width = window.innerWidth * 0.1;
+            const height = Math.min(500, width / 2);
+            const outerRadius = height / 2 - 10;
+            const innerRadius = outerRadius * 0.75;
+            const color = d3.scaleOrdinal(d3.schemeCategory10);
+
+            const svg = d3.select("#chart").append("svg")
+                .attr("viewBox", [-width / 2, -height / 2, width, height]);
+
+            // Create the pie chart
+            const arc = d3.arc()
+                .innerRadius(innerRadius)
+                .outerRadius(outerRadius);
+
+            const pie = d3.pie().sort(null).value((d) => d["apples"]);
+
+            const path = svg.datum(data).selectAll("path")
+                .data(pie)
+                .join("path")
+                .attr("fill", (d, i) => color(i))
+                .attr("d", arc)
+                .each(function (d) { this._current = d; }); // store the initial angles
+
+            // Add text labels
+            const text = svg.datum(data).selectAll("text")
+                .data(pie)
+                .join("text") // create text elements
+                .attr("transform", d => `translate(${arc.centroid(d)})`) // move the labels
+                .attr("dy", "0.35em") // vertical alignment
+                .attr("text-anchor", "middle") // horizontal alignment
+                .text(d => d.data.apples + " (" + ((d.endAngle - d.startAngle) / (2 * Math.PI) * 100).toFixed(2) + "%)") // display the percentage
+                .attr("font-size", "2px") // set the font size
+
+            function change(value) {
+                pie.value((d) => d[value]); // change the value function
+                path.data(pie); // compute the new angles
+                path.transition().duration(750).attrTween("d", arcTween); // redraw the arcs
+
+                // Update text labels
+                text.data(pie)
+                    .transition().duration(750) // animate the transition
+                    .attr("transform", d => `translate(${arc.centroid(d)})`) // move the labels
+                    .attr("font-size", "2px") // set the font size
+                    .text(d => d.data[value] + " (" + ((d.endAngle - d.startAngle) / (2 * Math.PI) * 100).toFixed(2) + "%)"); // update the text
+            }
+            // Function to interpolate between the current and new angles
+            function arcTween(a) {
+                const i = d3.interpolate(this._current, a);
+                this._current = i(0);
+                return (t) => arc(i(t));
+            }
+
+            return { change };
+        }
+
+        // Sample data
+        const data = [
+            { apples: 10, oranges: 20},
+            { apples: 20, oranges: 10},
+            { apples: 5, oranges: 40 },
+            { apples: 40, oranges: 10 }
+        ];
+
+        // Create the pie chart
+        const chart = createPieChart(data);
+
+        // Create radio buttons for dataset selection
+        const radio = d3.select("body").append("div")
+            .attr("class", "radio-buttons")
+            .selectAll("input")
+            .data(["apples", "oranges"]) // dataset options
+            .enter()
+            .append("label")
+            .text(d => d)
+            .append("input")
+            .attr("type", "radio")
+            .attr("name", "dataset")
+            .attr("value", d => d)
+            .property("checked", d => d === "apples") // set the default selection
+            .on("change", function () {
+                chart.change(this.value);
+            });
+
+
+    </script>
+</body>
+
+</html>

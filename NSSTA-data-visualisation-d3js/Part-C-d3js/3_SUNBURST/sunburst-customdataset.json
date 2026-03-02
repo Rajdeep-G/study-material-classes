@@ -1,0 +1,142 @@
+{
+
+
+    "children": [
+        {
+            "name": "fiction",
+            "children": [
+                {
+                    "name": "fantasy",
+                    "children": [
+                        {
+                            "name": "EpicFantasy",
+                            "value": 8562
+                        },
+                        {
+                            "name": "UrbanFantasy",
+                            "value": 6234
+                        },
+                        {
+                            "name": "MagicalRealism",
+                            "value": 4521
+                        },
+                        {
+                            "name": "MythologyBased",
+                            "value": 3890
+                        }
+                    ]
+                },
+                {
+                    "name": "mystery",
+                    "children": [
+                        {
+                            "name": "PoliceProcedural",
+                            "value": 5678
+                        },
+                        {
+                            "name": "CozyMystery",
+                            "value": 4321
+                        },
+                        {
+                            "name": "TrueCrime",
+                            "value": 7890
+                        },
+                        {
+                            "name": "HardboiledDetective",
+                            "value": 3456
+                        },
+                        {
+                            "name": "AmateurSleuth",
+                            "value": 2345
+                        }
+                    ]
+                },
+                {
+                    "name": "romance",
+                    "children": [
+                        {
+                            "name": "ContemporaryRomance",
+                            "value": 9876
+                        },
+                        {
+                            "name": "HistoricalRomance",
+                            "value": 6789
+                        },
+                        {
+                            "name": "ParanormalRomance",
+                            "value": 5432
+                        }
+                    ]
+                }
+            ]
+        },
+        {
+            "name": "nonfiction",
+            "children": [
+                {
+                    "name": "science",
+                    "children": [
+                        {
+                            "name": "PopularPhysics",
+                            "value": 4567
+                        },
+                        {
+                            "name": "EvolutionaryBiology",
+                            "value": 3456
+                        },
+                        {
+                            "name": "Astronomy",
+                            "value": 5678
+                        },
+                        {
+                            "name": "Neuroscience",
+                            "value": 6789
+                        }
+                    ]
+                },
+                {
+                    "name": "selfhelp",
+                    "children": [
+                        {
+                            "name": "Productivity",
+                            "value": 8901
+                        },
+                        {
+                            "name": "PersonalFinance",
+                            "value": 7890
+                        },
+                        {
+                            "name": "Mindfulness",
+                            "value": 6789
+                        },
+                        {
+                            "name": "Relationships",
+                            "value": 5678
+                        }
+                    ]
+                },
+                {
+                    "name": "history",
+                    "children": [
+                        {
+                            "name": "AncientCivilizations",
+                            "value": 4567
+                        },
+                        {
+                            "name": "WorldWars",
+                            "value": 8901
+                        },
+                        {
+                            "name": "ModernHistory",
+                            "value": 6789
+                        },
+                        {
+                            "name": "SocialMovements",
+                            "value": 5678
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}
